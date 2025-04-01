@@ -1,7 +1,10 @@
 #code for classifying images
 
+install.packages("patchwork")
 library(terra)
 library(imageRy)
+library(ggplot2)
+library(patchwork)
 
 im.list()
 
@@ -27,3 +30,18 @@ perc1992=prop1992*100
 tot2006=ncell(mato2006c)
 perc1992=freq(mato2006c)*100/tot2006
 #human=54%  forest=45%
+
+# creating dataframe
+class=c("Forest","Human")
+y1992=c(83,17)
+y2006=c(45,55)
+tab_mato=data.frame(class,y1992,y2006)
+
+p1=ggplot(tab_mato, aes(x=class, y=y1992, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
+p2=ggplot(tab_mato, aes(x=class, y=y2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
+p1+p2
+p1/p2
+
+p0=im.ggplot(mato1992)
+p00=im.ggplot(mato2006)
+p0+p00+p1+p2
