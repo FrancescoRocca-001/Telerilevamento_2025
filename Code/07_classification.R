@@ -45,3 +45,34 @@ p1/p2
 p0=im.ggplot(mato1992)
 p00=im.ggplot(mato2006)
 p0+p00+p1+p2
+
+
+
+#--- solar orbiter
+im.list()
+solar=im.import("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")
+#exercise: classify the image in 3 classes
+solar_c=im.classify(solar, num_clusters=3)
+#eexercise: plot the original image beside the classified one
+im.multiframe(1,2)
+plot(solar)
+plot(solar_c)
+
+# 1=low
+# 2=medium
+# 3=high
+dev.off()
+solar_c_s=subst(solar_c, c(1,2,3), c("low","medium","high"))
+plot(solar_c_s)
+
+#exercise: calculate the percentages of the sun energy classes with one line of code
+perc_solar=freq(solar_c_s)*100/ncell(solar_c_s)   #non funzia
+perc_solar=freq(solar_c_s)$count*100/ncell(solar_c_s)
+#create dataframe
+class=solar_c_s$value
+perc=perc_solar
+tabsol=data.frame(class,perc)     #non funziona
+
+#final ggplot
+ggplot(tabsol, aes(x=class, y=perc, fill=class, col=class)) + geom_bar(stat="identity") +
+  coord_flip
