@@ -112,3 +112,18 @@ p2=im.ggplot(sd3_agg)
 p3=im.ggplot(sd3_agg5)
 p4=im.ggplot(sd5_agg5)
 p1+p2+p3+p4
+
+
+#variance
+var3=sd3^2
+dev.off()
+plot(var3)
+
+im.multiframe(1,2)
+plot(sd3)
+plot(var3)
+
+sd5=focal(nir, w=c(5,5), fun="sd")
+var5=sd5^2
+plot(sd5)
+plot(var5)
