@@ -1,0 +1,13 @@
+#installing packages from github
+
+#from github:
+#install.packages("devtools")
+library(devtools)    #or remotes
+install_github("ducciorocchini/cblindplot")
+library(cblindplot)
+install_github("clauswilke/colorblindr")
+library(colorblindr)
+
+#from CRAN:
+install.packages("colorblindcheck")
+library(colorblindcheck)
