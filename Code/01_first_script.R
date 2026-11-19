@@ -2,6 +2,7 @@
 
 2+3
 
+#OGGETTO e ASSEGNAZIONE
 anna<-2+3 #assign an operation to an object
 chiara<-4+6
 
