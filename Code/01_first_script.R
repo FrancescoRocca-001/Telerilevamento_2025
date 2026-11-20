@@ -8,21 +8,27 @@ chiara<-4+6
 
 anna+chiara
 
-filippo <- c(0.2,0.4,0.6,0.8,0.9)           #array
+
+#VETTORE(ARRAY) = set di elementi(ARGOMENTI)
+filippo <- c(0.2,0.4,0.6,0.8,0.9)           #concatenate
 luca <- c(100,80,60,50,10)
 
+#correlazione
 plot(luca, filippo)
-plot(luca,filippo,pch=19)
+plot(luca,filippo,pch=19)       #point character
 plot(luca,filippo,pch=19,col="blue")
-plot(luca,filippo,pch=19,col="blue",cex=2)
+plot(luca,filippo,pch=19,col="blue",cex=2)        #character exaggeration
 plot(luca,filippo,pch=19,col="blue",cex=2,xlab="rubbish",ylab="biomass")
+
+
 
 #installing packages
 #CRAN
-install.packages("terra")
-library(terra)
+#terra: Spatial Data Analysis
+install.packages("terra")        #funzione per installare dal CRAN
+library(terra)                   #richiamare il pacchetto
 
-install.packages("devtools")
+install.packages("devtools")         #Tools to Make Developing R Packages Easier
 library(devtools)
-install_github("ducciorocchini/imageRy")
+install_github("ducciorocchini/imageRy")         #installare da github (funzione dentro devtools)
 library(imageRy)
