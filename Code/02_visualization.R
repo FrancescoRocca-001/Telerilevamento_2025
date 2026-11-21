@@ -75,24 +75,29 @@ plot(b8,col=cl)
 sent=c(b2,b3,b4,b8)            #dati impacchettati
 plot(sent,col=cl)              #con uno stack, vengono plottati anche i nomi delle immagini
 
-names(sent)=c("b2-blue","b3-green","b4-red","b8-NIR")              #cambiare i nomi
+names(sent)=c("b2-blue","b3-green","b4-red","b8-NIR")              #cambiare i nomi (funzione names)
 plot(sent,col=cl)
-plot(sent)     #tornare al colore originale
+plot(sent)         #tornare al colore originale
 
-plot(sent$b8NIR)      #ho dovuto cambiare il nome perchè non va bene il -
-plot(sent[[4]])
-
-#importing several bands altogether
-sentdol=im.import("sentinel.dolomites")
-
-#how to import several sets altogether
-pairs(sentdol)
+#plottare un solo elemento da uno stack
+dev.off()
+plot(sent$b8NIR)        #ho dovuto cambiare il nome perchè non va bene il trattino
+plot(sent[[4]])         #subset: []
 
 
+#importing several bands altogether (perchè sono simili e impilabili)
+sentdol=im.import("sentinel.dolomites")            #si usa la parte comune del nome di tutti i dati che vogliamo
 
-#viridis
+pairs(sentdol)          #correlazioni tra i layer
+
+
+
+#viridis (colorblind friendly): https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
 plot(sentdol,col=viridis(100))
 plot(sentdol,col=mako(100))
+
+
+ARRIVATO QUI
 
 
 # 1 - band 2(blue)
