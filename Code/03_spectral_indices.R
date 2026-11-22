@@ -1,4 +1,4 @@
-#code fro calculating spectral indices in R
+# Code for calculating spectral indices in R
 
 library(imageRy)
 library(terra)
@@ -7,16 +7,17 @@ library(viridis)
 im.list()
 
 mato1992=im.import("matogrosso_l5_1992219_lrg.jpg")
-mato1992=flip(mato1992)
+mato1992=flip(mato1992)              #può succedere che le immagini importate siano girate
 plot(mato1992)
 
-# 1=NIR
-# 2=red
-# 3=green
+# immagine già analizzata e composta da solo tre bande
+# 1 = NIR
+# 2 = red
+# 3 = green
 
 im.plotRGB(mato1992,r=1,g=2,b=3)
 im.plotRGB(mato1992,r=2,g=1,b=3)
-im.plotRGB(mato1992,r=2,g=3,b=1)
+im.plotRGB(mato1992,r=2,g=3,b=1)          #l'acqua dovrebbe essere nera, ma ha lo stesso colore del suolo per i molti solidi disciolti
 
 mato2006=im.import("matogrosso_ast_2006209_lrg.jpg")
 mato2006=flip(mato2006)
