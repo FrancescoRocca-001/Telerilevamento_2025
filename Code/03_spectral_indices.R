@@ -19,7 +19,8 @@ im.plotRGB(mato1992,r=1,g=2,b=3)
 im.plotRGB(mato1992,r=2,g=1,b=3)
 im.plotRGB(mato1992,r=2,g=3,b=1)          #l'acqua dovrebbe essere nera, ma ha lo stesso colore del suolo per i molti solidi disciolti
 
-mato2006=im.import("matogrosso_ast_2006209_lrg.jpg")
+
+mato2006=im.import("matogrosso_ast_2006209_lrg.jpg")           #stesse bande
 mato2006=flip(mato2006)
 plot(mato2006)
 
@@ -30,17 +31,18 @@ im.plotRGB(mato1992,r=1,g=2,b=3)
 im.plotRGB(mato2006,r=1,g=2,b=3)
 
 im.multiframe(3,2)
-#NIR on top of red
+# NIR on top of red
 im.plotRGB(mato1992,r=1,g=2,b=3)
 im.plotRGB(mato2006,r=1,g=2,b=3)
-#NIR on top of green
+# NIR on top of green
 im.plotRGB(mato1992,r=2,g=1,b=3)
 im.plotRGB(mato2006,r=2,g=1,b=3)
-#NIR on top of blue
+# NIR on top of blue
 im.plotRGB(mato1992,r=2,g=3,b=1)
 im.plotRGB(mato2006,r=2,g=3,b=1)
 
 dev.off()
+
 
 # exercise: plot only the first layer of mato2006
 plot(mato2006[[1]])
