@@ -49,9 +49,17 @@ plot(mato2006[[1]])
 plot(mato2006[[1]],col=magma(100))
 
 
+
 # DVI - Difference Vegetation Index
-# tree: NIR=255 (8bit), red=0, DVI=NIR-red=255-0=255
-# stressed tree: NIR=100, red=30, DVI=100-30=70
+# healthy tree: pressocchè NIR=255 (8bit), red=0   -->   DVI = NIR-red = 255-0 = 255
+# stressed tree: NIR=100, red=30                   -->   DVI = 100-30 = 70
+
+
+
+ARRIVATO QUI
+
+
+
 
 #calculating DVI
 im.multiframe(1,2)
