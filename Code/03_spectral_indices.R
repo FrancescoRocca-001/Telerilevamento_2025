@@ -54,27 +54,19 @@ plot(mato2006[[1]],col=magma(100))
 # healthy tree: pressocchè NIR=255 (8bit), red=0   -->   DVI = NIR-red = 255-0 = 255
 # stressed tree: NIR=100, red=30                   -->   DVI = 100-30 = 70
 
-
-
-ARRIVATO QUI
-
-
-
-
-#calculating DVI
+# calculating DVI
 im.multiframe(1,2)
 plot(mato1992)
 plot(mato2006)
 
-DVI1992=mato1992[[1]]-mato1992[[2]]     #NIR-red
+DVI1992=mato1992[[1]]-mato1992[[2]]       #NIR-red
 dev.off()
 plot(DVI1992)
-
-#range DVI
-#maximum: NIR-red=255-0
-#minimum: NIR-red=0-255
-
 plot(DVI1992, col=magma(100))
+
+# range DVI
+# maximum: NIR-red = 255-0 = 255
+# minimum: NIR-red = 0-255 = -255
 
 #calculate DVI for 2006
 DVI2006=mato2006[[1]]-mato2006[[2]]
@@ -85,27 +77,28 @@ plot(DVI1992)
 plot(DVI2006)
 
 
-#different radiometric resolutions
-#DVI 8 bit: range --> max:255, min:-255
-#DVI 4 bit: range --> max:15, min:-15
+# different radiometric resolutions (ad esempio immagini di epoche diverse)
+# DVI 8 bit: range --> max:255, min:-255
+# DVI 4 bit: range --> max:15, min:-15
+# non sono confrontabili!
 
-#NDVI 8 bit (0-255)
-#maximum: (NIR-red)/(NIR+red)=(255-0)/(255+0)=1
-#minimum: (0-255)/(0+255)=-1
-#NDVI 4 bit (0-15)
-#max: (15-0)/(15+0)=1
-#min: (0-15)/(0+15)=-1
+# NDVI (Normalized Difference Vegetation Index) 8 bit (0-255)
+# maximum: (NIR-red)/(NIR+red) = (255-0)/(255+0) = 1
+# minimum: (0-255)/(0+255) = -1
+# NDVI 4 bit (0-15)
+# max: (15-0)/(15+0) = 1
+# min: (0-15)/(0+15) = -1
+# stesso range di valori qualsiasi sia la risoluzione radiometrica!
 
 ndvi1992=(mato1992[[1]]-mato1992[[2]])/(mato1992[[1]]+mato1992[[2]])
 plot(ndvi1992)
 ndvi2006=(mato2006[[1]]-mato2006[[2]])/(mato2006[[1]]+mato2006[[2]])
 plot(ndvi2006)
 
-#functions from imageRy
+
+
+# functions from imageRy
 dvi1992auto=im.dvi(mato1992,1,2)
 plot(dvi1992auto)
 ndvi1992auto=im.ndvi(mato1992,1,2)
 plot(ndvi1992auto)
-
-
-
