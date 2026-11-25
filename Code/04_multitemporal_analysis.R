@@ -1,34 +1,39 @@
-#R code for multitemporal analysis
+# R code for multitemporal analysis (= analizzare cambiamenti nel tempo)
 
-install.packages("ggridges")   #needed to create ridgeline plots
+install.packages("ggridges")     #needed to create ridgeline plots
 library(terra)
 library(imageRy)
 library(viridis)
-library(ggridges)   #non servirebbe perchè lo richiama im.ridgeline
+library(ggridges)     #non servirebbe perchè lo richiama im.ridgeline
+
 
 im.list()
 
-EN_01=im.import("EN_01.png")
+EN_01=im.import("EN_01.png")       #ossidi di azoto durante il lockdown (European Nitrogen)
 EN_01=flip(EN_01)
-plot(EN_01)
+plot(EN_01)                        #inizio gennaio
 
 EN_13=im.import("EN_13.png")
 EN_13=flip(EN_13)
-plot(EN_13)
+plot(EN_13)                        #fine marzo
 
 im.multiframe(1,2)
 plot(EN_01)
 plot(EN_13)
 
-ENdif=EN_01[[1]] - EN_13[[1]]
-plot(ENdif)
-plot(ENdif,col=inferno(100))
+EN_dif = EN_01[[1]] - EN_13[[1]]         #queste immagini hanno 3 livelli per comporre i colori RGB, non sono associate a bande
+plot(EN_dif)                         #quello che è chiaro aveva valore maggiore a gennaio, quello scuro aveva valore maggiore a marzo
+plot(EN_dif,col=inferno(100))
+
 
 # Greenland ice melt
-gr=im.import("greenland")
+gr=im.import("greenland")        #dati di temperatura (Copernicus) a 16 bit
+grdif=gr[[4]]-gr[[1]]          #4 strati che corrispondono a 4 anni
+plot(grdif)                #dove è giallo è aumentata la temperatura
 
-grdif=gr[[1]]-gr[[4]]
-plot(grdif)
+
+
+ARRIVATO QUI
 
 
 
