@@ -1,6 +1,6 @@
 # R code for multitemporal analysis (= analizzare cambiamenti nel tempo)
 
-install.packages("ggridges")     #needed to create ridgeline plots
+install.packages("ggridges")     #needed to create ridgeline plots (based on ggplot2)
 library(terra)
 library(imageRy)
 library(viridis)
@@ -33,41 +33,46 @@ plot(grdif)                #dove è giallo è aumentata la temperatura
 
 
 
-ARRIVATO QUI
+# RIDGELINE PLOTS:
+# dai dati originali, creano una distribuzione di frequenze per ogni anno (si può fare con qualsiasi tipo di dataset)
+
+im.ridgeline(gr, scale=1)        #prende il valore di tutti i pixel e ne calcola la frequenza (richiama delle funzioni di ggridges)
+im.ridgeline(gr, scale=2)        #scale definisce quanto può essere alto al massimo un picco
+im.ridgeline(gr, scale=2, palette="inferno")        #argomento non obbligatorio
 
 
-
-#ridgeline plots
-
-im.ridgeline(gr, scale=1)
-im.ridgeline(gr, scale=2)
-im.ridgeline(gr, scale=2, palette="inferno")
-
+#exercise: import the NDVI data from Sentinel (arco alpino)
 im.list()
-#exercise: import the NDVI data from sentinel
-ndvi=im.import("Sentinel2")
-im.ridgeline(ndvi,scale=2)   #male!
+ndvi=im.import("Sentinel2_NDVI")
 
-#changing names
-#sources     : Sentinel2_NDVI_2020-02-21.tif  
-#             Sentinel2_NDVI_2020-05-21.tif  
-#             Sentinel2_NDVI_2020-08-01.tif  
-#             Sentinel2_NDVI_2020-11-27.tif  
+im.ridgeline(ndvi,scale=2)      #male! si ottiene un grafico solo perchè le 4 immagini hanno lo stesso nome
+
+# changing names
+#sources: Sentinel2_NDVI_2020-02-21.tif  
+#         Sentinel2_NDVI_2020-05-21.tif  
+#         Sentinel2_NDVI_2020-08-01.tif  
+#         Sentinel2_NDVI_2020-11-27.tif  
 
 names(ndvi)=c("02_feb","05_may","08_aug","11_nov")
-im.ridgeline(ndvi,scale=2)
+im.ridgeline(ndvi,scale=2)           #si vede il cambiamento di biomassa con le stagioni
 im.ridgeline(ndvi,scale=2, palette="mako")
 
+# questo tipo di output fa vedere come varia tutto il dataset, anzichè solo la differenza tra due immagini
 
-pairs(ndvi)
 
-plot(ndvi[[1]],ndvi[[2]])
+
+# plottare un dataset rispetto ad un altro
+pairs(ndvi)       #questo plotta tutti i layer
+plot(ndvi[[1]],ndvi[[2]])       #così plotto solo due layer
+
+# aggiungiamo una linea 1:1 (dove sarebbero i dati se fossero uguali nei due mesi)
 # y=x --> may=feb
 # y = a + bx
 # a=0, b=1 --> y=x
 abline(0,1, col="red")
-plot(ndvi[[1]],ndvi[[2]],xlim=c(-0.3,0.9),ylim=c(-0.3,0.9))
+plot(ndvi[[1]],ndvi[[2]],xlim=c(-0.3,0.9),ylim=c(-0.3,0.9))       #stabiliamo gli intervalli mostrati dei due assi
 abline(0,1, col="red")
+        #i dati di maggio sono quasi sempre maggiori di quelli di febbraio
 
 im.multiframe(1,3)
 plot(ndvi[[1]])
