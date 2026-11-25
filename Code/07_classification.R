@@ -1,4 +1,5 @@
-#code for classifying images
+# Code for classifying images
+# finora abbiamo fatto analisi quantitative senza statistiche, ora calcoliamo una percentuale di cambiamento
 
 install.packages("patchwork")
 library(terra)
