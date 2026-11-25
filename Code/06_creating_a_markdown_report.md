@@ -16,8 +16,8 @@ This will create the following output image:
 
 <img src="../Pics/output.jpeg" width=50% />
 
-> Note 1: If you want to put pdf files you can rely on StackOverflow
+> Note 1: If you want to put pdf files you can rely on: https://stackoverflow.com/questions/39777166/display-pdf-image-in-markdown
 
-> Note 2: Information about the Copernicus program can be found at:
+> Note 2: Information about the Copernicus program can be found at: https://www.copernicus.eu/it
 
-> Here are the [Sentinel data used]()
+> Here are the [Sentinel data used](https://dataspace.copernicus.eu/explore-data/data-collections/sentinel-data/sentinel-2)
