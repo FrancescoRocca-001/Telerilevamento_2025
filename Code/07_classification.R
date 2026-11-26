@@ -90,34 +90,33 @@ ggplot(all, aes(x=classall, y=percentage, color=classall)) + geom_bar(stat="iden
 
 
 
-
-
-
-#--- solar orbiter
+# Solar Orbiter
 im.list()
-solar=im.import("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")
-#exercise: classify the image in 3 classes
+solar=im.import("Solar_Orbiter_s_first_views_of_the_Sun_pillars.jpg")        #gas del sole a diversi livelli energetici
+
+# exercise: classify the image in 3 classes (livelli energetici)
 solar_c=im.classify(solar, num_clusters=3)
-#eexercise: plot the original image beside the classified one
+# exercise: plot the original image beside the classified one
 im.multiframe(1,2)
 plot(solar)
 plot(solar_c)
 
-# 1=low
-# 2=medium
-# 3=high
+# 1=low   2=high   3=medium
+# rinominare le classi (così non importa l'ordine)
 dev.off()
-solar_c_s=subst(solar_c, c(1,2,3), c("low","medium","high"))
+solar_c_s=subst(solar_c, c(1,2,3), c("low","high","medium"))        #funzione per sostituire dei valori nelle celle
 plot(solar_c_s)
 
-#exercise: calculate the percentages of the sun energy classes with one line of code
-perc_solar=freq(solar_c_s)*100/ncell(solar_c_s)   #non funzia
-perc_solar=freq(solar_c_s)$count*100/ncell(solar_c_s)
+# exercise: calculate the percentages of the sun energy classes with one line of code
+perc_solar=freq(solar_c_s)*100/ncell(solar_c_s)        #non funziona stavolta perchè "freq(solar_c_s)" contiene una colonna di stringhe (high, low, medium) che non possono essere moltiplicate *100
+perc_solar=freq(solar_c_s)$count*100/ncell(solar_c_s)        #viene moltiplicata solo la colonna "count"
+      # low = 37.33   medium = 41.45   high = 21.22
+
 #create dataframe
-class=solar_c_s$value
+class=freq(solar_c_s)$value
 perc=perc_solar
-tabsol=data.frame(class,perc)     #non funziona
+tabsol=data.frame(class,perc)
 
 #final ggplot
-ggplot(tabsol, aes(x=class, y=perc, fill=class, col=class)) + geom_bar(stat="identity") +
-  coord_flip
+ggplot(tabsol, aes(x=class, y=perc, fill=class, col=class)) + geom_bar(stat="identity") + coord_flip()
+     # + ylim(c(0,100)) 
