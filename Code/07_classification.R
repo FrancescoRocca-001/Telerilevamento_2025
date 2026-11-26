@@ -1,5 +1,10 @@
 # Code for classifying images
-# finora abbiamo fatto analisi quantitative senza statistiche, ora calcoliamo una percentuale di cambiamento
+# finora abbiamo fatto analisi non statistiche, ora calcoliamo una percentuale di cambiamento (usando la CLASSIFICAZIONE)
+# data un'immagine colorata con una certa composizione di bande, possiamo visualizzare come ogni pixel si distribuisce nello spazio spettrale plottandolo in un grafico a tre assi (riflettanza tre bande)
+# i pixel dello steso "tipo" si distribuiranno nella stessa zona dello spazio spettrale: possiamo quindi creare delle CLASSI
+# dato un nuovo pixel, possiamo calcolarne la distanza spettrale dalle varie classi: apparterrà alla classe da cui ha la distanza minima (si può ripetere il processo per ogni pixel)
+# --> creiamo dei "training sites" (pixel iniziali per definire le classi) e tutto il resto viene classificato automaticamente associando i pixel alla classe più vicina
+
 
 install.packages("patchwork")
 library(terra)
@@ -7,18 +12,21 @@ library(imageRy)
 library(ggplot2)
 library(patchwork)
 
+
 im.list()
 
-mato1992=im.import("matogrosso_l5_1992219_lrg.jpg")
+mato1992=im.import("matogrosso_l5_1992219_lrg.jpg")       #il NIR è montato sulla componente rossa
 mato1992=flip(mato1992)
-plot(mato1992)
-
+plot(mato1992)                                            #quanto sarà la percentuale di foresta?
 mato2006=im.import("matogrosso_ast_2006209_lrg.jpg")
 mato2006=flip(mato2006)
 plot(mato2006)
 
-mato1992c=im.classify(mato1992, num_clusters=2)
-#class1=forest  class2=human
+mato1992c=im.classify(mato1992, num_clusters=2)        #cluster = classe
+#class1=forest  class2=human (in realtà tutto ciò che non è foresta: l'acqua non si può distinguere dal suolo)
+#non sempre le classi hanno lo stesso ordine: l'inizio dei training sites è casuale!
+#unsupervised classification = non inseriamo noi i training sites, fa da sola
+
 mato2006c=im.classify(mato2006, num_clusters=2)
 #class1=forest  class2=human
 
