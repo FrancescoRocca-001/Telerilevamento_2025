@@ -6,7 +6,7 @@
 # --> creiamo dei "training sites" (pixel iniziali per definire le classi) e tutto il resto viene classificato automaticamente associando i pixel alla classe più vicina
 
 
-install.packages("patchwork")
+install.packages("patchwork")      #serve per unire tra loro dei grafici fatti con ggplot2 (più velocemente che con un multiframe)
 library(terra)
 library(imageRy)
 library(ggplot2)
@@ -40,19 +40,30 @@ perc1992=prop1992*100
 
 tot2006=ncell(mato2006c)
 perc2006=freq(mato2006c)*100/tot2006         #fatto in un passaggio solo
-     #forest=45%  human=54%
+     #forest=45%  human=55%
 
 
-# creating dataframe
-class=c("Forest","Human")
-y1992=c(83,17)
-y2006=c(45,55)
-tab_mato=data.frame(class,y1992,y2006)
+# creating DATAFRAME (= tabella)
+class=c("Forest","Human")        #definiamo le tre colonne della tabella
+year1992=c(83,17)
+year2006=c(45,55)
+tab_mato=data.frame(class,year1992,year2006)       #crea una tabella
 
-p1=ggplot(tab_mato, aes(x=class, y=y1992, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
-p2=ggplot(tab_mato, aes(x=class, y=y2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
-p1+p2
-p1/p2
+p1 = ggplot(tab_mato,          #funzione base per fare plot in ggplot2: crea solo la struttura del grafico
+          aes(x=class, y=year1992, color=class))          #aesthetics: definire chi va in x, chi va in y, come colorare diversamente gli istogrammi (solo contorno)
+     + geom_bar(               #funzione per definire tipo di grafico (geom_points è un'altra)
+          stat="identity",          #tipo di statistica: non dobbiamo fare medie, deviazioni standard... solo usare i valori iniziali
+          fill="white")          #colore interno istogrammi
+     + ylim(c(0,100))          #definisce limiti del grafico (perchè siano tutti e due in scala), qui è una funzione!!
+
+p2 = ggplot(tab_mato, aes(x=class, y=year2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
+
+p1+p2       #mettere accanto due grafici (patchwork), serve che siano associati a oggetti
+p1/p2       #metterli in verticale
+
+# --> ora abbiamo un grafico statistico reale
+
+
 
 p0=im.ggplot(mato1992)
 p00=im.ggplot(mato2006)
