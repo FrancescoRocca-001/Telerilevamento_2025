@@ -23,22 +23,25 @@ mato2006=flip(mato2006)
 plot(mato2006)
 
 mato1992c=im.classify(mato1992, num_clusters=2)        #cluster = classe
-#class1=forest  class2=human (in realtà tutto ciò che non è foresta: l'acqua non si può distinguere dal suolo)
+     #class1=forest  class2=human (in realtà tutto ciò che non è foresta: l'acqua non si può distinguere dal suolo)
 #non sempre le classi hanno lo stesso ordine: l'inizio dei training sites è casuale!
 #unsupervised classification = non inseriamo noi i training sites, fa da sola
 
 mato2006c=im.classify(mato2006, num_clusters=2)
-#class1=forest  class2=human
+     #class1=forest  class2=human
+#si può far sì che la classificazione parta sempre allo stesso modo dando un numero nell'argomento "seed"
 
-f1992=freq(mato1992c)
-tot1992=ncell(mato1992c)
-prop1992=f1992/tot1992
+
+f1992=freq(mato1992c)         #frequenze dei pixel (riportate come "count")
+tot1992=ncell(mato1992c)         #totale pixel dell'immagine
+prop1992=f1992/tot1992         #proporzioni dei pixel ("count")
 perc1992=prop1992*100
-#human=17%  forest=83%
+     #forest=83%  human=17%
 
 tot2006=ncell(mato2006c)
-perc1992=freq(mato2006c)*100/tot2006
-#human=54%  forest=45%
+perc2006=freq(mato2006c)*100/tot2006         #fatto in un passaggio solo
+     #forest=45%  human=54%
+
 
 # creating dataframe
 class=c("Forest","Human")
