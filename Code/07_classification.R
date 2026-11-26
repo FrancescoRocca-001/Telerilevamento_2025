@@ -64,10 +64,17 @@ p1/p2       #metterli in verticale
 # --> ora abbiamo un grafico statistico reale
 
 
-
-p0=im.ggplot(mato1992)
+p0=im.ggplot(mato1992)       #funzione di imageRy (ma pensata per plottare una banda sola: plotta la prima -> NIR)
 p00=im.ggplot(mato2006)
 p0+p00+p1+p2
+
+
+# per mettere colonne uniche che vanno a 100%:
+# https://stackoverflow.com/questions/52684424/show-the-percentage-instead-of-count-in-histogram-using-ggplot2-r
+
+
+
+ARRIVATO QUI
 
 
 
