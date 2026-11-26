@@ -72,9 +72,24 @@ p0+p00+p1+p2
 # per mettere colonne uniche che vanno a 100%:
 # https://stackoverflow.com/questions/52684424/show-the-percentage-instead-of-count-in-histogram-using-ggplot2-r
 
+# per colorare le colonne come il contorno basta mettere "fill" in "aes"
+ggplot(tab_mato, aes(x=class, y=y2006, fill=class, color=class)) + geom_bar(stat="identity") + ylim(c(0,100))
+
+# https://www.sthda.com/english/wiki/ggplot2-barplots-quick-start-guide-r-software-and-data-visualization
+
+# barre orizzontali: funzione coord_flip()
+ggplot(tab_mato, aes(x=class, y=y1992, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100)) + coord_flip()
+ggplot(tab_mato, aes(x=class, y=y2006, color=class)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100)) + coord_flip()
+
+# dataframe un po' diverso per poter plottare 4 colonne insieme
+classall = c("Forest1992","Human1992","Forest2006","Human2006")
+percentage = c(83,17,45,55)
+all = data.frame(classall, percentage)
+ggplot(all, aes(x=classall, y=percentage, color=classall)) + geom_bar(stat="identity", fill="white") + ylim(c(0,100))
 
 
-ARRIVATO QUI
+
+
 
 
 
