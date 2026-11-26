@@ -20,13 +20,17 @@ https://github.com/rociobeatrizc/GEE
 Download an image from the network
 
 ## Step 2:
-Store iot in your computer
+Store it in your computer
 
 ## Step 3:
 Set the working directory:
+```r
 setwd("yourpath")
+```
 
 ## Step 4:
 Import the data:
+```r
 library(terra)
 name <- rast("yourdata_in_the_working_directory")
+```
