@@ -1,4 +1,7 @@
-#calculating spatial variability
+# Calculating spatial variability
+# finora abbiamo analizzato solo la variabilità nel tempo
+# la variabilità nello spazio può essere relazionata alla biodiversità (diversità spettrale -> classi vegetazionali -> numero di specie)
+# in geologia un'intrusione di minerali può dare un aumento di variabilità
 
 library(terra)
 library(imageRy)
@@ -7,31 +10,37 @@ library(patchwork)
 install.packages("RStoolbox")
 library(RStoolbox)
 
-# 24 26 25
-M=(24+26+25)/3
-sc_quad=(24-M)^2+(26-M)^2+(25-M)^2
-v=sc_quad/3
+
+# STANDARD DEVIATION: https://www.cuemath.com/data/standard-deviation/
+# tre età: 24 26 25
+M=(24+26+25)/3      #media
+sc_quad=(24-M)^2+(26-M)^2+(25-M)^2      #scarto quadratico
+v=sc_quad/3      #varianza
 sd=sqrt(v)
 
-sd(c(24,25,26))
+sd(c(24,25,26))      #questa però calcola la SD del campione (N-1) -> non fa differenza quando il campione è grande
 
-sd(c(24,25,26,49))
+sd(c(24,25,26,49))      #inserendo un dato fuori dalla distribuzione originale, SD aumenta
+mean(c(24,26,25,49))      #anche la media si sposta: quando abbiamo un outlier si usa la mediana anzichè la media, perchè varia molto meno
 
 
 
 im.list()
-sent=im.import("sentinel.png")
+sent=im.import("sentinel.png")       #immagine pre-analizzata del ghiacciaio del similaun
 sent=flip(sent)
-#band1=NIR, 2=red, 3=green
+plot(sent)       # band1=NIR, 2=red, 3=green, 4: solo una banda di controllo
 
-#exercise: plot the image in RGB with the NIR on top of the red component
-im.plotRGB(sent, r=1,g=2,b=3)
+# exercise: plot the image in RGB with the NIR on top of the red component
+sent_rgb=im.plotRGB(sent, r=1,g=2,b=3)
 
-#exercise: make three plots with NIR on top of each component
+# exercise: make three plots with NIR on top of each component
 im.multiframe(1,3)
 im.plotRGB(sent, r=1,g=2,b=3)
 im.plotRGB(sent, r=2,g=1,b=3)
 im.plotRGB(sent, r=3,g=2,b=1)
+      #la parte evidenziata dal NIR sono praterie di alta quota, il nero è l'acqua, il giallo (nel terzo) è il suolo nudo, il bianco è neve o nuvole (con dati ottici non si possono rimuovere, con radar sì)
+
+
 
 
 nir=sent[[1]]
