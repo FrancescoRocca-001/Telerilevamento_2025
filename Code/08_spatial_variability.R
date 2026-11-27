@@ -100,8 +100,9 @@ ncell(sent_agg5)*nlyr(sent_agg5)       #un venticinquesimo
 # exercise: make a multiframe and plot in RGB the 3 images
 im.multiframe(1,3)
 im.plotRGB(sent, r=1, g=2, b=3)
-im.plotRGB(sent_agg, r=1, g=2, b=3)
+im.plotRGB(sent_agg, r=1, g=2, b=3)       #non si perde molta risoluzione e si guadagna 4 volte nel calcolo
 im.plotRGB(sent_agg5, r=1, g=2, b=3)
+      #non sempre la risoluzione massima è meglio: una risoluzione minore basta a vedere confini grossi e in più elimina rumore (ombre)
 
 
 # calculating standard deviation
@@ -115,9 +116,8 @@ nir_agg5=sent_agg5[[1]]
 sd3_agg5=focal(nir_agg5, w=c(3,3), fun="sd")
 plot(sd3_agg5)
 
-sd5_agg5=focal(nir_agg5, w=c(5,5), fun="sd")
+sd5_agg5=focal(nir_agg5, w=c(5,5), fun="sd")       #fattore di ricampionamento 5 e finestra mobile 5x5
 plot(sd5_agg5)
-
 
 im.multiframe(2,2)
 plot(sd3)
@@ -132,9 +132,17 @@ p4=im.ggplot(sd5_agg5)
 p1+p2+p3+p4
 
 
-#variance
-var3=sd3^2
+
+
+ARRIVATO QUI
+
+
+
+
+
+# variance
 dev.off()
+var3=sd3^2
 plot(var3)
 
 im.multiframe(1,2)
