@@ -42,23 +42,28 @@ im.plotRGB(sent, r=3,g=2,b=1)
 
 
 
-
+# la SD va calcolata su una variabile sola (uno dei tre livelli)
 nir=sent[[1]]
-
-#exercise: plot the nir band with the inferno color ramp palette
+# exercise: plot the nir band with the inferno color ramp palette
 dev.off()
 plot(nir, col=inferno(100))
 
-
-sd3=focal(nir, w=c(3,3), fun="sd")
+# se calcoliamo la SD su tutti i pixel, otteniamo un singolo valore finale, ma non ci serve questo
+# vogliamo vedere dentro l'immagine dove questa varia di più: metodo MOVING WINDOW
+sd3 = focal(nir, w=c(3,3), fun="sd")         #funzione di terra: "w" sono le dimensioni della finestra, "fun" la funzione da usare
 plot(sd3)
+      #si vedono tutte le zone in cui c'è una variazione del NIR (eterogeneità geomorfologica e variazione della vegetazione)
 
 im.multiframe(1,2)
 im.plotRGB(sent, r=1, g=2, b=3)
 plot(sd3)
 
+# non c'è una grana ideale, dipende dal processo che si vuole vedere (variazioni di dettaglio o ad ampia scala)
 sd5=focal(nir, w=c(5,5), fun="sd")
 plot(sd5)
+      #zone con più alta variabilità relativamente a tutta l'immagine, perchè aumenta la finestra di calcolo
+
+
 
 #exercise: use ggplot to plot the standard deviation
 im.ggplot(sd3)
