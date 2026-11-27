@@ -7,7 +7,7 @@ library(terra)
 library(imageRy)
 library(viridis)
 library(patchwork)
-install.packages("RStoolbox")
+install.packages("RStoolbox")      #per plottare (con ggplot2) due immagini che hanno dimensioni diverse con stessa dimensione
 library(RStoolbox)
 
 
@@ -73,34 +73,38 @@ p_sd3=im.ggplot(sd3)
 p_sd5=im.ggplot(sd5)
 p_sd3+p_sd5
 
-
-#plot the original dev and the stdev
+#plot the original NIR and the SD
 p_nir=im.ggplot(nir)
 p_nir + p_sd3
 
+# "ggRGB" (pacchetto RStoolbox) permette di plottare un'immagine a tre bande con ggplot2
+p_rgb = ggRGB(sent, r=1,g=2,b=3)
+p_rgb + p_sd3         #in questo modo posso plottare due immagini che avrebbero dimensioni diverse con le stesse dimensioni
 
 
 
-#what to do in case of huge images
+
+# RICAMPIONAMENTO: what to do in case of huge images (calcoli molto pesanti) --> diminuzione risoluzione spaziale
 sent=im.import("sentinel.png")
 sent=flip(sent)
 plot(sent)
+sent        #risoluzione 1x1 (non m, è una risoluzione fittizia perchè l'immagine è già analizzata)
+ncell(sent)*nlyr(sent)        #numero di pixel con cui lavoriamo
 
-ncell(sent)*nlyr(sent)
-
-sent_agg=aggregate(sent, fact=2)
-ncell(sent_agg)*nlyr(sent_agg)
+sent_agg = aggregate(sent, fact=2)       #ricampionamento aumentando la dimensione dei pixel di un fattore 2 (= moltiplicato *2 ogni lato di pixel, il nuovo pixel è grande *4) 
+ncell(sent_agg)*nlyr(sent_agg)       #un quarto di prima
 
 sent_agg5=aggregate(sent, fact=5)
-ncell(sent_agg5)*nlyr(sent_agg5)
+ncell(sent_agg5)*nlyr(sent_agg5)       #un venticinquesimo
 
-#exercise: make a multiframe and plot in RGB the 3 images
+# exercise: make a multiframe and plot in RGB the 3 images
 im.multiframe(1,3)
 im.plotRGB(sent, r=1, g=2, b=3)
 im.plotRGB(sent_agg, r=1, g=2, b=3)
 im.plotRGB(sent_agg5, r=1, g=2, b=3)
 
-#calculating standard deviation
+
+# calculating standard deviation
 dev.off()
 nir_agg=sent_agg[[1]]
 sd3_agg=focal(nir_agg, w=c(3,3), fun="sd")
