@@ -120,3 +120,5 @@ im.plotRGB(sentdol,r=3,g=4,b=1)
 
 dev.off()
 im.plotRGB(sentdol,r=3,g=2,b=4)       #di solito così il suolo diventa giallo per i minerali presenti (non si vede qui)
+
+# si può usare anche come im.plotRGB(name, 1, 2, 3)
